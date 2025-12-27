@@ -17,14 +17,15 @@ function AuthHydrator() {
         store.dispatch(setAuthState({ status: "signedOut", user: null }));
         return;
       }
-
+      const user = data.user;
       store.dispatch(
         setAuthState({
           status: "signedIn",
           user: {
-            id: data.user.id,
-            email: data.user.email,
-            name: (data.user.user_metadata)?.full_name ?? null,
+            id: user.id,
+            email: user.email ?? null,
+            phone: user.phone || null,
+            displayName: user.user_metadata?.display_name ?? null,
           },
         })
       );
@@ -44,8 +45,9 @@ function AuthHydrator() {
           status: "signedIn",
           user: {
             id: user.id,
-            email: user.email,
-            name: (user.user_metadata)?.full_name ?? null,
+            email: user.email ?? null,
+            phone: user.phone || null,
+            displayName: user.user_metadata?.display_name ?? null,
           },
         })
       );

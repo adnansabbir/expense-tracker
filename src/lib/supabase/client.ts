@@ -19,3 +19,13 @@ export async function supabaseForgotPassword(email: string) {
     redirectTo: `${window.location.origin}/reset-password`,
   });
 }
+
+export async function supabaseUpdateUserData(payload: {
+  data: {
+    display_name?: string | undefined;
+    phone?: string | undefined;
+  };
+}) {
+  const supabase = createClient();
+  return await supabase.auth.updateUser(payload);
+}
